@@ -1,1 +1,2 @@
-folder
+Question: "How does the aircraft route influence the mitigation potential of trajectory optimization? 
+(which part of Europe can yield the highest reduction in climate impact)(split data to regions)"
