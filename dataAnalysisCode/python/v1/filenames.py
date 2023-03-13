@@ -37,6 +37,25 @@ def all_filenames_DT12(path_to_full_data: str, model: str):
 
     return filepaths
 
+def all_filenames_for_month(path_to_full_data: str, model: str, month: int):
+    filepaths = []
+
+    for f in listdir(path_to_full_data + '/DT00'):
+        if isfile(join(path_to_full_data + '/DT00', f)) and f[(f.find('_0000_'))+6::] == model:
+            if f[-27:-23] == "2017" and month == 0:
+                filepaths.append(path_to_full_data + '/DT00/' + f)
+        elif f[-27:-23] == "2018" and int(f[-23:-21]) == month:
+                filepaths.append(path_to_full_data + '/DT00/' + f)
+
+    for f in listdir(path_to_full_data + '/DT12'):
+        if isfile(join(path_to_full_data + '/DT12', f)) and f[(f.find('_0000_'))+6::] == model:
+            if f[-27:-23] == "2017" and month == 0:
+                filepaths.append(path_to_full_data + '/DT12/' + f)
+        elif f[-27:-23] == "2018" and int(f[-23:-21]) == month:
+                filepaths.append(path_to_full_data + '/DT12/' + f)
+
+    return filepaths
+
 
 ## ------------------------------------------------------------
 ## Retrieve all airtraf_ac file names
