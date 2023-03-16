@@ -28,10 +28,10 @@ ax.imshow(imread(fname), origin='upper', transform=source_proj, extent=[-180, 18
 #generates 2.8 x 2.8 degree grid onto the map
 xlines = []
 ylines = []
-for i in range(-280, 280):
-    xlines.append(i*2.8)
-for i in range(0, 80):
-    ylines.append(i*2.8)
+for i in range(-100, 100):
+    xlines.append(i*2.81)
+for i in range(-100, 100):
+    ylines.append(i*2.81)
 ax.gridlines(xlocs=xlines, ylocs=ylines, linewidth = 0.5 , color = 'black')
 
 #adds country borders
