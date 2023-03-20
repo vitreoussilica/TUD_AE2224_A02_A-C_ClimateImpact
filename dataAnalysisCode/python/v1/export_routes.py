@@ -19,6 +19,7 @@ def get_all_routes(file_data):
         ap1, ap2 = ap.find_route_icao(float(longitude1), float(latitude1), float(longitude2), float(latitude2))
         route = (str(ap1), str(ap2), longitude1, latitude1, longitude2, latitude2)
 
+
         # Write code to append routes to a list of routes.
         routes.append(route)
 
@@ -33,5 +34,12 @@ all_routes = get_all_routes(data)
 with open('routes.txt', 'w') as f:
     for route in all_routes:
         f.write(route[0] + ' ' + route[1] + ' ' + str(route[2]) + ' ' +  str(route[3]) + ' ' + str(route[4]) + ' ' + str(route[5]) +'\n')
+
+def all_route_coordinates():
+    list = []
+    for route in all_routes:
+        list.append((route[2], route[3], route[4], route[5]))
+
+    return list
 
 

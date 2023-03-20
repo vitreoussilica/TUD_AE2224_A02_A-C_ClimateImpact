@@ -26,8 +26,9 @@ def get_route_data(filename, longitude1: float, latitude1: float, longitude2: fl
                 route_day = j
                 route_timestamp = filename[-47:-43]
                 route_optimisation = filename[-41:-38]
+                route_coordinates = (longitude1, latitude1, longitude2, latitude2)
 
-                flight = Flight(route_data, route_datestamp, route_day, route_timestamp, route_optimisation)
+                flight = Flight(route_data, route_datestamp, route_day, route_timestamp, route_optimisation, route_coordinates)
 
                 flights.append(flight)
 
