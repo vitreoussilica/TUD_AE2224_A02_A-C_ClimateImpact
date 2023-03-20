@@ -25,7 +25,7 @@ def files_to_flight_objects(filenames: list):
                 else:
                     print("Error: route datestamp not found")
 
-                route_day = j
+                route_day = int(f[-21:-19]) + j - 1
 
                 ## Setting the timestamp to 0 for DT00, 1 for DT12
                 if f[-47:-43] == "DT12":
