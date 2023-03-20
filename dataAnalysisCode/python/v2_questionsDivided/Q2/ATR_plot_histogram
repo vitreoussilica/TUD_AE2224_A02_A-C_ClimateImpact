@@ -1,0 +1,36 @@
+import matplotlib.pyplot as plt
+import numpy as np
+import random
+'''This code generates plots for each emission on the distribution of the wrelative average temperature response
+with respect to the cost optimal trajectory against the number of flights. 
+For the report four of these plots are to be generated.'''
+
+# Data for two routes: minimal climate impact and optimal climate impact with 1 percent increase in operating costs
+climate_impct_min = [round(random.uniform(-0.75, 0), 2) for _ in range(100)]
+optimal_1perc= nclimate_impct_min = [round(random.uniform(-0.75, 0), 2) for _ in range(100)]
+
+# Create bins for the histogram
+bins = np.linspace(-0.75, 0, 20)
+
+plt.figure(figsize=(8, 6))  # Set the figure size to 8x6 inches
+
+# Add x, y gridlines
+#plt.grid(b = True, color ='grey', linestyle ='-.', linewidth = 0.5, alpha = 0.6)
+
+# Create the histogram for climate_impct_min
+plt.hist(climate_impct_min, bins, alpha=0.4, color='purple', edgecolor='black', label='min climate impact')
+
+# Create the histogram for optimal climate impact with 1 percent increase in operating costs
+plt.hist(optimal_1perc, bins, alpha=0.6, color='green', edgecolor='black', label='min climate impact w/ +1%s in SOC' % '%')
+
+# Add axis labels and title
+plt.xlabel(r'Relative Average Temperature Response ($\Delta$$ATR_{rel}$)')
+plt.ylabel('Number of Flights')
+plt.title(r'Distribution of $\Delta$$ATR_{rel}$ due to $CO_{2}$ for Two Optimized Trajectories')
+
+# Add a legend
+plt.legend(loc='upper right', bbox_to_anchor=(1, 1))
+
+# Show the plot
+plt.show()
+
