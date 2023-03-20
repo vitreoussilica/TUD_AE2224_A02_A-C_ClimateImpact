@@ -1,0 +1,52 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import random
+
+# Import the relative ATR values of individual emissions for two routes: 
+# minimal climate impact and optimal climate impact with 1 percent increase in operating costs
+#co2
+carbondiox_minclim = [round(random.uniform(-0.4, -0.3), 2) for _ in range(100)]
+carbondiox_1perc = [round(random.uniform(-0.15, 0), 2) for _ in range(100)]
+#nox
+nitoxides_minclim  = [round(random.uniform(-0.55, -0.4), 2) for _ in range(100)]
+nitoxides_1perc  = [round(random.uniform(-0.2, -0.1), 2) for _ in range(100)]
+#waterw
+waterw_minclim  =  [round(random.uniform(-0.35, -0.3), 2) for _ in range(100)]
+waterw_1perc  = [round(random.uniform(-0.05, 0), 2) for _ in range(100)]
+#contrails
+contrails_minclim = [round(random.uniform(-0.75, -0.5), 2) for _ in range(100)]
+contrails_1perc  = [round(random.uniform(-0.3, -0.1), 2) for _ in range(100)]
+
+# Import fuel consumption data
+fuel_data_1perc = [0.1] * len(carbondiox_1perc)
+#cox
+fuel_data_minclim_co = [round(random.uniform(0.4, 0.8), 2) for _ in range(100)]
+#nox
+fuel_data_minclim_no = [round(random.uniform(0.4, 0.8), 2) for _ in range(100)]
+#ww
+fuel_data_minclim_ww = [round(random.uniform(0.4, 0.8), 2) for _ in range(100)]
+#con
+fuel_data_minclim_con = [round(random.uniform(0.4, 0.8), 2) for _ in range(100)]
+
+# Plot the scatter plot
+plt.figure(figsize=(8, 6))
+#co2
+plt.scatter(carbondiox_minclim, fuel_data_minclim_co, alpha=0.4, color='purple', label='Carbondioxide')
+plt.scatter(carbondiox_1perc, fuel_data_1perc, alpha=0.4, color='purple')
+#nox
+plt.scatter(nitoxides_minclim, fuel_data_minclim_no, alpha=0.4, color='green', label='Nitrogen Oxides')
+plt.scatter(nitoxides_1perc, fuel_data_1perc, alpha=0.4, color='green')
+#waterwapor
+plt.scatter(waterw_minclim, fuel_data_minclim_ww, alpha=0.4, color='orange', label='Water Wapor')
+plt.scatter(waterw_1perc, fuel_data_1perc, alpha=0.4,  color='orange')
+#contrails
+plt.scatter(contrails_minclim, fuel_data_minclim_con, alpha=0.4, color='blue', label='Contrails')
+plt.scatter(contrails_1perc, fuel_data_1perc, alpha=0.4, color='blue')
+
+
+plt.xlabel(r'Relative Average Temperature Response ($\Delta$$ATR_{rel}$)')
+plt.ylabel(r'Relative Fuel Consumption ($\Delta$$Fuel_{rel}$)')
+plt.title('Pareto Fronts of emissions for optimized trajectories')
+plt.legend(loc='lower left')
+plt.grid(b = True, color ='grey', linestyle ='-.', linewidth = 0.5, alpha = 0.6)
+plt.show()

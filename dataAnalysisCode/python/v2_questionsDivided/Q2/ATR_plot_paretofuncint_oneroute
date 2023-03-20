@@ -1,0 +1,48 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Import the relative ATR values of individual emissions for two routes: 
+# minimal climate impact and optimal climate impact with 1 percent increase in operating costs
+carbondiox = [0, -0.24, -0.57]
+nitoxides = [0, -0.13, -0.30]
+waterw = [0, -0.07, -0.1]
+contrails = [0, -0.3, -0.75]
+
+# Import fuel consumption data
+fuel_data = [0, 0.02, 0.08] 
+
+# Interpolate the data points with a parabolic function
+x_carbondiox = np.linspace(min(carbondiox), max(carbondiox), 100)
+f_carbondiox = np.poly1d(np.polyfit(carbondiox, fuel_data, 15))
+y_carbondiox = f_carbondiox(x_carbondiox)
+
+x_nitoxides = np.linspace(min(nitoxides), max(nitoxides), 100)
+f_nitoxides = np.poly1d(np.polyfit(nitoxides, fuel_data, 15))
+y_nitoxides = f_nitoxides(x_nitoxides)
+
+x_waterw = np.linspace(min(waterw), max(waterw), 100)
+f_waterw = np.poly1d(np.polyfit(waterw, fuel_data, 15))
+y_waterw = f_waterw(x_waterw)
+
+x_contrails = np.linspace(min(contrails), max(contrails), 100)
+f_contrails = np.poly1d(np.polyfit(contrails, fuel_data, 15))
+y_contrails = f_contrails(x_contrails)
+
+# Plot the scatter plot and interpolated curves
+plt.figure(figsize=(8, 6))
+plt.scatter(carbondiox, fuel_data, color='purple', label='Carbondioxide')
+plt.scatter(nitoxides, fuel_data, color='green', label='Nitrogen Oxides')
+plt.scatter(waterw, fuel_data, color='orange', label='Water wapor')
+plt.scatter(contrails, fuel_data, color='blue', label='Contrails')
+
+plt.plot(x_carbondiox, y_carbondiox, color='purple', label='Carbondioxide Parabola')
+plt.plot(x_nitoxides, y_nitoxides, color='green', label='Nitrogen Oxides Parabola')
+plt.plot(x_waterw, y_waterw, color='orange', label='Water wapor Parabola')
+plt.plot(x_contrails, y_contrails, color='blue', label='Contrails Parabola')
+
+plt.xlabel(r'Relative Average Temperature Response ($\Delta$$ATR_{rel}$)')
+plt.ylabel(r'Relative Fuel Consumption ($\Delta$$Fuel_{rel}$)')
+plt.title('Pareto Fronts of emissions for optimized trajectories')
+plt.legend(loc='lower left')
+plt.grid(b = True, color ='grey', linestyle ='-.', linewidth = 0.5, alpha = 0.6)
+plt.show()
