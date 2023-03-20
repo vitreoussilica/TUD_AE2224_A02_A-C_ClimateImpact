@@ -29,9 +29,9 @@ ax.imshow(imread(fname), origin='upper', transform=source_proj, extent=[-180, 18
 xlines = []
 ylines = []
 for i in range(-100, 100):
-    xlines.append(i*2.81)
+    xlines.append(i*2.8125)
 for i in range(-100, 100):
-    ylines.append(i*2.81)
+    ylines.append(i*2.8125)
 ax.gridlines(xlocs=xlines, ylocs=ylines, linewidth = 0.5 , color = 'black')
 
 #adds country borders
