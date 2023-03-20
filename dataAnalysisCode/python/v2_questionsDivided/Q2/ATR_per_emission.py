@@ -60,37 +60,93 @@ for i in range(0,13):
                     if flight.route == routes_list[l]:
                         flight_trio.append(flight)
                 if len(flight_trio) == 3:
+                    flight_trio.sort(key=lambda x: x.optimisation)
                     triplets.append((flight_trio[0], flight_trio[1], flight_trio[2]))
                     continue
 
-mitigation_potentials_compromise = []
-mitigation_potentials_max = []
+
+deltas_ATR_NOX_Ozone_compromise = []
+deltas_ATR_NOX_Ozone_max = []
+
+deltas_ATR_NOX_Methane_compromise = []
+deltas_ATR_NOX_Methane_max = []
+
+deltas_ATR_Water_Vapour_compromise = []
+deltas_ATR_Water_Vapour_max = []
+
+deltas_ATR_Contrails_compromise = []
+deltas_ATR_Contrails_max = []
+
+deltas_ATR_CO2_compromise = []
+deltas_ATR_CO2_max = []
+
+deltas_ATR_Total_compromise = []
+deltas_ATR_Total_max = []
+
 negative_triplets = []
 
+def delta_ATR_x(totals: list):
+    if totals[0] > 0 and totals[1] > 0:
+        delta_ATR_x_compromise =  -1 *  (1 - totals[1] / totals[0])
+        delta_ATR_x_max = -1 * (1 - totals[2] / totals[0]) 
+    elif totals[0] > 0 and totals[1] < 0:
+        delta_ATR_x_compromise = -1 + totals[1] / totals[0]
+        delta_ATR_x_max = -1 + totals[0] / totals[0]
+    elif totals[0] > 0 and totals[2] < 0:
+        delta_ATR_x_compromise = -1 *  (1 - totals[1] / totals[0])
+        delta_ATR_x_max = -1 + totals[1] / totals[0]
+    elif totals[0] < 0 and totals[1] < 0  and totals[2] < 0:
+        delta_ATR_x_compromise = 0
+        delta_ATR_x_max = 0
+    else:
+        delta_ATR_x_compromise = 0
+        delta_ATR_x_max = 0
+
+    return delta_ATR_x_compromise, delta_ATR_x_max
+
 for triplet in triplets:
-    ATRs = [triplet[0].total_ATR(), triplet[1].total_ATR(), triplet[2].total_ATR()]
+    #ATRs = [triplet[0].total_ATR(), triplet[1].total_ATR(), triplet[2].total_ATR()]
+    totals_NOX_Ozone = [triplet[0].total_ATR_NOX_Ozone(), triplet[1].total_ATR_NOX_Ozone(), triplet[2].total_ATR_NOX_Ozone()]
+    totals_NOX_Methane = [triplet[0].total_ATR_NOX_Methane(), triplet[1].total_ATR_NOX_Methane(), triplet[2].total_ATR_NOX_Methane()]
+    totals_Water_Vapour = [triplet[0].total_ATR_Water_Vapour(), triplet[1].total_ATR_Water_Vapour(), triplet[2].total_ATR_Water_Vapour()]
+    totals_Contrails = [triplet[0].total_ATR_Contrails(), triplet[1].total_ATR_Contrails(), triplet[2].total_ATR_Contrails()]
+    totals_CO2 = [triplet[0].total_ATR_CO2(), triplet[1].total_ATR_CO2(), triplet[2].total_ATR_CO2()]
+    totals_Total = [triplet[0].total_ATR(), triplet[1].total_ATR(), triplet[2].total_ATR()]
 
-    total0 = triplet[0].total_ATR()
-    total1 = triplet[1].total_ATR()
-    total2 = triplet[2].total_ATR()
+    deltas_ATR_NOX_Ozone_compromise.append(delta_ATR_x(totals_NOX_Ozone)[0])
+    deltas_ATR_NOX_Ozone_max.append(delta_ATR_x(totals_NOX_Ozone)[1])
 
-    if total2 > 0 and total1 > 0:
-        mitigation_potential_compromise =  -1 *  (1 - total1 / total2)
-        mitigation_potential_max = -1 * (1 - total0 / total2) 
-    elif total2 > 0 and total1 < 0:
-        mitigation_potential_compromise = -1 + total1 / total2
-        mitigation_potential_max = -1 + total0 / total2
-    elif total2 > 0 and total0 < 0:
-        mitigation_potential_compromise = -1 *  (1 - total1 / total2)
-        mitigation_potential_max = -1 + total1 / total2
-    elif total2 < 0 and total1 < 0  and total2 < 0:
-        negative_triplets.append(triplet)
+    deltas_ATR_NOX_Methane_compromise.append(delta_ATR_x(totals_NOX_Methane)[0])
+    deltas_ATR_NOX_Methane_max.append(delta_ATR_x(totals_NOX_Methane)[1])
 
+    deltas_ATR_Water_Vapour_compromise.append(delta_ATR_x(totals_Water_Vapour)[0])
+    deltas_ATR_Water_Vapour_max.append(delta_ATR_x(totals_Water_Vapour)[1])
 
-    mitigation_potentials_compromise.append(mitigation_potential_compromise)
-    mitigation_potentials_max.append(mitigation_potential_max)
+    deltas_ATR_Contrails_compromise.append(delta_ATR_x(totals_Contrails)[0])
+    deltas_ATR_Contrails_max.append(delta_ATR_x(totals_Contrails)[1])
 
+    deltas_ATR_CO2_compromise.append(delta_ATR_x(totals_CO2)[0])
+    deltas_ATR_CO2_max.append(delta_ATR_x(totals_CO2)[1])
 
-## Lists that include the mitigation potential for each flight
-print(mitigation_potentials_compromise)
-print(mitigation_potentials_max)
+    deltas_ATR_Total_compromise.append(delta_ATR_x(totals_Total)[0])
+    deltas_ATR_Total_max.append(delta_ATR_x(totals_Total)[1])
+
+print(deltas_ATR_NOX_Ozone_compromise)
+print(deltas_ATR_NOX_Ozone_max)
+
+print(deltas_ATR_NOX_Methane_compromise)
+print(deltas_ATR_NOX_Methane_max)
+
+print(deltas_ATR_Water_Vapour_compromise)
+print(deltas_ATR_Water_Vapour_max)
+
+print(deltas_ATR_Contrails_compromise)
+print(deltas_ATR_Contrails_max)
+
+print(deltas_ATR_CO2_compromise)
+print(deltas_ATR_CO2_max)
+
+print(deltas_ATR_Total_compromise)
+print(deltas_ATR_Total_max)
+
+print(len(deltas_ATR_NOX_Ozone_compromise), len(deltas_ATR_NOX_Ozone_max), len(deltas_ATR_NOX_Methane_compromise), len(deltas_ATR_NOX_Methane_max), len(deltas_ATR_Water_Vapour_compromise), len(deltas_ATR_Water_Vapour_max), len(deltas_ATR_Contrails_compromise), len(deltas_ATR_Contrails_max), len(deltas_ATR_CO2_compromise), len(deltas_ATR_CO2_max), len(deltas_ATR_Total_compromise), len(deltas_ATR_Total_max))
