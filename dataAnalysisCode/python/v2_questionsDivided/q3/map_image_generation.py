@@ -38,7 +38,7 @@ ax.gridlines(xlocs=xlines, ylocs=ylines, linewidth = 0.5 , color = 'black')
 ax.add_feature(cf.BORDERS)
 
 #size of the showcased map (longitude, latitude)
-extent = [-10, 50, 30, 70]
+extent = [-20, 50, 25, 65]
 ax.set_extent(extent)
 ax.coastlines(resolution='10m')
 
