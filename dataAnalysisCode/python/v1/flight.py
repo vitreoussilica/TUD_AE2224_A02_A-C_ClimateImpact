@@ -25,6 +25,14 @@ class Flight:
     
     def total_ATR(self):
         return self.data[15,:].sum()
+    
+    def total_SOC(self):
+        fuel_sum = self.data[6,:].sum()
+        distance_speed_sum = self.data[5,:].sum() / self.data[4,:].sum()
+        time_cost = 0.75 * distance_speed_sum * 3600
+        fuel_cost = 0.51 * fuel_sum
+        return time_cost + fuel_cost
+
 
     
     def print_summary(self):
