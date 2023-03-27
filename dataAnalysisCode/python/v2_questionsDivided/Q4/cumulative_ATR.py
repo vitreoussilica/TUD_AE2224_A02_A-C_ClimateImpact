@@ -1,34 +1,29 @@
-
 import numpy as np
 import xarray as x
 import matplotlib.pyplot as plt
 import filenames as fn
+
 '''
 Altitude, Ground Speed, ATR20
     - Altitude
     - Ground speed
-    - Cumulative ATR -- done by Q2
+    - Cumulative ATR
 '''
 
-filenames = fn.all_filenames_airtraf_ac_DT00('C:/Users/milan/OneDrive - Delft University of Technology/Project_Y2Q3-4/AT20_optimal')
-print(filenames)
+filenames = fn.all_filenames_airtraf_ac_DT00('/Users/annika/Desktop/Project/Full_Data')
 
 altitude = np.zeros((1))
 cumulative_ATR = np.zeros((1))
-print(altitude)
 for filename in filenames:
     dataset = x.open_dataset(filename)
     data = dataset.variables['routes_out'].data
-
+    # Data altitude & cumulative ATR
     altitude = np.concatenate((altitude, data[0,0,2,:]))
     cumulative_ATR = np.concatenate((cumulative_ATR, data[0,0,15,:]))
 
+# To get rid of values created by np.zeros in lines 15-16 earlier
 altitude = np.delete(altitude, 0)
 cumulative_ATR = np.delete(cumulative_ATR, 0)
-
-
-
-print('Airtraf data variables:')
 
 # Splitting data into 3 different heights
 #8500-9500
