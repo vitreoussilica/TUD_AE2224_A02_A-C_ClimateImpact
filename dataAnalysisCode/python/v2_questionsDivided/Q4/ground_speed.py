@@ -4,10 +4,9 @@ import matplotlib.pyplot as plt
 import filenames as fn
 
 '''
-Altitude, Ground Speed, ATR20
+Altitude & Ground Speed
     - Altitude
     - Ground speed
-    - Cumulative ATR
 '''
 
 filenames = fn.all_filenames_airtraf_ac_DT00('/Users/annika/Desktop/Project/Full_Data')
