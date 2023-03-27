@@ -18,7 +18,7 @@ data = data_ECHAM.variables
 print(data)
 
 # Data altitude & weather conditions
-altitude = ...
+altitude = ...  # We don't yet have the altitude information
 rainr = data['rsfl_2d'].data + data['rsfc_2d'].data  # Large-scale + convective rain rate
 snowr = data['ssfl_2d'].data + data['ssfc_2d'].data  # Large-scale + convective snow rate
 u_wind = data['um1'].data
@@ -34,4 +34,8 @@ plt.scatter(altitude, snowr, color="green", marker=".", label="Snow rate")
 plt.xlabel("Altitude [m]")
 plt.ylabel("Rain/snow rate [kg/m^2/s]")
 plt.legend()
+
+# Graph the other useful variables versus altitude too (also dep. on the altitude information we need but don't yet have)
+...
+
 plt.show()
