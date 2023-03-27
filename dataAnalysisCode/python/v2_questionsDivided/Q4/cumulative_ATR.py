@@ -1,3 +1,6 @@
+import sys
+sys.path.insert(1, '/Users/annika/Desktop/Project/TUD_AE2224_A02_A-C_ClimateImpact-Q2_Gerben/dataAnalysisCode/python/v1')
+
 import numpy as np
 import xarray as x
 import matplotlib.pyplot as plt
