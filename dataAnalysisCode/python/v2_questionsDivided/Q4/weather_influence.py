@@ -18,12 +18,12 @@ print(data)
 
 # Data altitude & weather
 altitude = ...
-rr = data['rsfc_2d'].data + data['ssfl_2d'].data
-sr = data['ssfc_2d'].data + data['tsurf'].data
+rr = data['rsfc_2d'].data + data['ssfl_2d'].data  # Large-scale + convective rain rate
+sr = data['ssfc_2d'].data + data['tsurf'].data  # Large-scale + convective snow rate
 
 plt.figure(figsize=(8, 6))
-plt.scatter(altitude, rr, color="red", marker=".", label="8500-12500")
-plt.scatter(altitude, sr, color="green", marker=".", label="8500-12500")
+plt.scatter(altitude, rr, color="red", marker=".", label="Rain rate")
+plt.scatter(altitude, sr, color="green", marker=".", label="Snow rate")
 plt.xlabel("Altitude [m]")
 plt.ylabel("Rain/snow rate [kg/m^2/s]")
 plt.legend()
