@@ -1,5 +1,6 @@
 import xarray as x
 import matplotlib.pyplot as plt
+
 '''
 Useful variables ECHAM:
     - Large-scale/convective rain/snow (rate) -- combine large-scale and convective for the total rate
@@ -16,14 +17,20 @@ print('ECHAM data variables:')
 data = data_ECHAM.variables
 print(data)
 
-# Data altitude & weather
+# Data altitude & weather conditions
 altitude = ...
-rr = data['rsfc_2d'].data + data['ssfl_2d'].data  # Large-scale + convective rain rate
-sr = data['ssfc_2d'].data + data['tsurf'].data  # Large-scale + convective snow rate
+rainr = data['rsfl_2d'].data + data['rsfc_2d'].data  # Large-scale + convective rain rate
+snowr = data['ssfl_2d'].data + data['ssfc_2d'].data  # Large-scale + convective snow rate
+u_wind = data['um1'].data
+v_wind = data['vm1'].data
+rel_hum = data['rhum'].data
+cloud_water = data['xlm1'].data
+cloud_ice = data['xim1'].data
+vert_wind = data['etadot'].data
 
 plt.figure(figsize=(8, 6))
-plt.scatter(altitude, rr, color="red", marker=".", label="Rain rate")
-plt.scatter(altitude, sr, color="green", marker=".", label="Snow rate")
+plt.scatter(altitude, rainr, color="red", marker=".", label="Rain rate")
+plt.scatter(altitude, snowr, color="green", marker=".", label="Snow rate")
 plt.xlabel("Altitude [m]")
 plt.ylabel("Rain/snow rate [kg/m^2/s]")
 plt.legend()
