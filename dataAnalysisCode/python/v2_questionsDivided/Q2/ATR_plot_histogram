@@ -1,16 +1,50 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import random
+import pickle
+
 '''This code generates plots for each emission on the distribution of the wrelative average temperature response
 with respect to the cost optimal trajectory against the number of flights. 
 For the report four of these plots are to be generated.'''
 
+
+deltas = []
+with open("deltas_SOC_NOX_Ozone_compromise.txt", "r") as f:
+  for line in f:
+    deltas.append(float(line.strip()))
+
+deltas_max = []
+with open("deltas_SOC_NOX_Ozone_max.txt", "r") as f:
+  for line in f:
+    deltas_max.append(float(line.strip()))
+
+pairs = []
+with open('SOC_ATR_pairs_NOX_Ozone_compromise.txt', 'r') as f:
+  for line in f:
+    line = line.strip()
+    line = line[1:-1]
+    line = line.split(',')
+    line = [float(i) for i in line]
+    pairs.append(tuple(line))
+
+newpairs = []
+omitted = 0
+for pair in pairs:
+  if pair[0] > -5:
+    newpairs.append(pair)
+  else:
+    omitted += 1
+
+pairs = newpairs
+print(f'You omitted {omitted} values!')
+
+
 # Data for two routes: minimal climate impact and optimal climate impact with 1 percent increase in operating costs
-climate_impct_min = [round(random.uniform(-0.75, 0), 2) for _ in range(100)]
-optimal_1perc= nclimate_impct_min = [round(random.uniform(-0.75, 0), 2) for _ in range(100)]
+climate_impct_min = deltas_max
+optimal_1perc = deltas
 
 # Create bins for the histogram
-bins = np.linspace(-0.75, 0, 20)
+bins = np.linspace(-0.05, 0.05, 100)
 
 plt.figure(figsize=(8, 6))  # Set the figure size to 8x6 inches
 
@@ -18,15 +52,15 @@ plt.figure(figsize=(8, 6))  # Set the figure size to 8x6 inches
 #plt.grid(b = True, color ='grey', linestyle ='-.', linewidth = 0.5, alpha = 0.6)
 
 # Create the histogram for climate_impct_min
-plt.hist(climate_impct_min, bins, alpha=0.4, color='purple', edgecolor='black', label='min climate impact')
+plt.hist(climate_impct_min, bins, alpha=0.6, color='purple', edgecolor='black', label='min climate impact')
 
 # Create the histogram for optimal climate impact with 1 percent increase in operating costs
-plt.hist(optimal_1perc, bins, alpha=0.6, color='green', edgecolor='black', label='min climate impact w/ +1%s in SOC' % '%')
+plt.hist(optimal_1perc, bins, alpha=0.5, color='green', edgecolor='black', label='min climate impact w/ +1%s in SOC' % '%')
 
 # Add axis labels and title
-plt.xlabel(r'Relative Average Temperature Response ($\Delta$$ATR_{rel}$)')
+plt.xlabel(r'Change in SOC')
 plt.ylabel('Number of Flights')
-plt.title(r'Distribution of $\Delta$$ATR_{rel}$ due to $CO_{2}$ for Two Optimized Trajectories')
+plt.title(r'Distribution of change in SOC for the compromised solution and optimal solution')
 
 # Add a legend
 plt.legend(loc='upper right', bbox_to_anchor=(1, 1))
