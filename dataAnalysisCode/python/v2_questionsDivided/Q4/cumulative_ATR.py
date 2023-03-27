@@ -4,9 +4,8 @@ import matplotlib.pyplot as plt
 import filenames as fn
 
 '''
-Altitude, Ground Speed, ATR20
+Altitude & ATR20
     - Altitude
-    - Ground speed
     - Cumulative ATR
 '''
 
