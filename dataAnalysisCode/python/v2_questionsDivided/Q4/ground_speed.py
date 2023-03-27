@@ -21,6 +21,7 @@ for filename in filenames:
     altitude = np.concatenate((altitude, data[0,0,2,:]))
     ground_speed = np.concatenate((ground_speed, data[0,0,4,:]))
 
+# To get rid of values created by np.zeros in lines 15-16 earlier
 altitude = np.delete(altitude, 0)
 ground_speed = np.delete(ground_speed, 0)
 
