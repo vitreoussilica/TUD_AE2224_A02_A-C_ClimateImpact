@@ -24,4 +24,8 @@ print(sorted_atr_dict)
 x = np.arange(365)
 y = -1 * np.array(list(atr_dict.values()))  # List of all ATR's, ordered chronologically 
 plt.plot(x, y, color='b')
+plt.xlim(0., 365.)
+plt.ylim(0.)
+plt.xlabel("Year [days]")
+plt.ylabel("Cumulative ATR20 values [K/kg/day]")
 plt.show()
